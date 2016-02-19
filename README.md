@@ -101,11 +101,12 @@ node start.js
  Method   | URL                                | Description                          
  ---------|------------------------------------|--------------------------------------
  GET      | /api/client                        | Get list of clients
+ GET      | /client/:client_name               | Public service for getting client & its settings
  GET      | /api/clients                       | Get list of clients
  POST     | /api/client                        | Create a client
  PUT      | /api/client                        | Update a client
+ PUT      | /client                            | Public service for updating a client. Can be used just when client.configured=false
  DELETE   | /api/client/{client_id}            | Delete a client
-
 
 ## Contributing
 The [Concorda][] encourages open participation. If you feel you can help in any way, be it with
