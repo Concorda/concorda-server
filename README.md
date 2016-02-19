@@ -96,7 +96,7 @@ node start.js
  PUT      | /api/user                          | Update an user, different from the one logged in
  DELETE   | /api/user/{user_id}                | Delete an user
 
- ### Client management
+### Client management
 
  Method   | URL                                | Description                          
  ---------|------------------------------------|--------------------------------------
