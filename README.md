@@ -101,6 +101,7 @@ node start.js
  Method   | URL                                | Description                          
  ---------|------------------------------------|--------------------------------------
  GET      | /api/client                        | Get list of clients
+ GET      | /api/client/:clientId              | Get client
  GET      | /client/:client_name               | Public service for getting client & its settings
  GET      | /api/clients                       | Get list of clients
  POST     | /api/client                        | Create a client
