@@ -1,5 +1,24 @@
 ![Banner][]
 
+Table of Contents
+=================
+
+  * [Table of Contents](#table-of-contents)
+  * [Concorda Dashboard API](#concorda-dashboard-api)
+  * [Do not use in production - yet](#do-not-use-in-production---yet)
+  * [Deployment types](#deployment-types)
+    * [Deploy as a Seneca plugin with all internal functionality](#deploy-as-a-seneca-plugin-with-all-internal-functionality)
+    * [Deploy as a Seneca plugin with all functionality provided by a Concorda microservice deployment](#deploy-as-a-seneca-plugin-with-all-functionality-provided-by-a-concorda-microservice-deployment)
+    * [Deploy as a Seneca microservice](#deploy-as-a-seneca-microservice)
+  * [Server API](#server-api)
+    * [Authorization](#authorization)
+    * [User management](#user-management)
+    * [Client management](#client-management)
+    * [Tag management](#tag-management)
+    * [User-Tag management](#user-tag-management)
+  * [Contributing](#contributing)
+  * [License](#license)
+
 # Concorda Dashboard API
 Concorda: User management system
 
@@ -10,9 +29,9 @@ Concorda: User management system
 
 Concorda-API plugin will expose the following HTTP API:
 
-## Deployment types
+# Deployment types
 
-### Deploy as a Seneca plugin with all internal functionality
+## Deploy as a Seneca plugin with all internal functionality
 
 Use the following example to register as plugin
 
@@ -37,7 +56,7 @@ module.exports = function (options) {
 
 ```
 
-### Deploy as a Seneca plugin with all functionality provided by a Concorda microservice deployment
+## Deploy as a Seneca plugin with all functionality provided by a Concorda microservice deployment
 
 Use the following example to register as plugin
 
@@ -61,15 +80,15 @@ module.exports = function (options) {
 ```
   
 
-### Deploy as a Seneca microservice
+## Deploy as a Seneca microservice
 
 ```
 node start.js
 ```
 
-## Server API
+# Server API
 
-### Authorization
+## Authorization
 
  Method   | URL                                  | Description                           | Documentation
  ---------|--------------------------------------|---------------------------------------|------------------------------------------
@@ -85,7 +104,7 @@ node start.js
  GET/POST | /auth/login                          | Login                                 | https://github.com/senecajs/seneca-auth
 
 
-### User management
+## User management
 
  Method   | URL                                | Description                          
  ---------|------------------------------------|--------------------------------------
@@ -96,7 +115,7 @@ node start.js
  PUT      | /api/user                          | Update an user, different from the one logged in
  DELETE   | /api/user/{user_id}                | Delete an user
 
-### Client management
+## Client management
 
  Method   | URL                                | Description                          
  ---------|------------------------------------|--------------------------------------
@@ -110,14 +129,14 @@ node start.js
  DELETE   | /api/client/{client_id}            | Delete a client
 
 
-### Tag management
+## Tag management
 
  Method   | URL                                | Description                          
  ---------|------------------------------------|--------------------------------------
  GET      | /api/tag                           | Get list of tags
  GET      | /api/tags                          | Get list of tags. An alias for /api/tag
 
-### User-Tag management
+## User-Tag management
 
  Method   | URL                                | Description                          
  ---------|------------------------------------|--------------------------------------
@@ -125,13 +144,13 @@ node start.js
  POST     | /api/user/:userId/tag/:tagId/remove| Remove a tag from a specified user
 
 
-## Contributing
+# Contributing
 The [Concorda][] encourages open participation. If you feel you can help in any way, be it with
 documentation, examples, extra testing, or new features please get in touch.
 
 - [Code of Conduct]
 
-## License
+# License
 Copyright (c) 2016, nearForm and other contributors.
 Licensed under [MIT][].
 
