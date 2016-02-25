@@ -109,6 +109,22 @@ node start.js
  PUT      | /client                            | Public service for updating a client. Can be used just when client.configured=false
  DELETE   | /api/client/{client_id}            | Delete a client
 
+
+### Tag management
+
+ Method   | URL                                | Description                          
+ ---------|------------------------------------|--------------------------------------
+ GET      | /api/tag                           | Get list of tags
+ GET      | /api/tags                          | Get list of tags. An alias for /api/tag
+
+### User-Tag management
+
+ Method   | URL                                | Description                          
+ ---------|------------------------------------|--------------------------------------
+ POST     | /api/user/:userId/tag/:tagId/add   | Add a tag to a specified user
+ POST     | /api/user/:userId/tag/:tagId/remove| Remove a tag from a specified user
+
+
 ## Contributing
 The [Concorda][] encourages open participation. If you feel you can help in any way, be it with
 documentation, examples, extra testing, or new features please get in touch.
