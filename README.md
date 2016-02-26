@@ -27,8 +27,6 @@ Concorda: User management system
 
 # Do not use in production - yet
 
-Concorda-API plugin will expose the following HTTP API:
-
 # Deployment types
 
 ## Deploy as a Seneca plugin with all internal functionality
@@ -87,6 +85,8 @@ node start.js
 ```
 
 # Server API
+
+Concorda-API plugin will expose the following HTTP API:
 
 ## Authorization
 
