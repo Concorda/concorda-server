@@ -33,7 +33,7 @@
     "hapi-auth-cookie": "6.0.0",
     "jsonic": "0.2.2",
     "lodash": "3.10.1",
-    "seneca-auth": "mirceaalexandru/seneca-auth",
+    "seneca-auth": "1.x.x",
     "seneca-github-auth": "github:mirceaalexandru/seneca-github-auth",
     "seneca-google-auth": "mirceaalexandru/seneca-google-auth",
     "seneca-mesh": "0.5.0",
