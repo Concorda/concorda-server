@@ -2,12 +2,12 @@ Back to [TOC](./Readme.md)
 
 # Installing Concorda Dashboard
 
-## What is Concorda Dashboard
+### What is Concorda Dashboard
 
 Concorda Dashboard is default UI implemented in React for Concorda system. 
 
 
-## Installing Concorda Dashboard
+### Installing Concorda Dashboard
 
 Clone github repository for [Concorda Dashboard](https://github.com/nearform/concorda-dashboard)
 

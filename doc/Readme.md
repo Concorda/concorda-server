@@ -16,7 +16,7 @@ Welcome to Concorda wiki. Please choose your topic below.
 **Server**
 
 * [Server API](./server-api.md)
-* [Configurin Clients](./configuring-clients.md)
+* [Configuring Clients](./configuring-clients.md)
 
 
 
