@@ -27,3 +27,8 @@ then
 Also you can watch the files for changes and automatically rebuild the sources by running `npm run watch`
 in a different terminal.
 
+IMPORTANT NOTES
+===============
+
+1. By default the following user is added to Concorda as part of initial setup: admin@concorda.com/admin
+2. It is very important that after you started Concorda for the first time to login and change administrator passowrd and e-mail.
