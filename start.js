@@ -35,7 +35,7 @@ server.connection({port: opts.server.port})
 var plugins = [
   {register: Bell},
   {register: Cookie},
-  {register: Chairo, options: opts.chairo},
+  {register: Chairo, options: opts.chairo}
 ]
 
 // Register our plugins.
@@ -48,7 +48,7 @@ server.register(plugins, function (err) {
   server.start(function (err) {
     endIfErr(err)
 
-    setTimeout(function(){
+    setTimeout(function () {
       server.seneca
         .use('mesh', {auto: true, pin: ['role: user', 'role: concorda-communication']})
     }, 3 * 1000)
