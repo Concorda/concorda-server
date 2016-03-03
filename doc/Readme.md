@@ -18,7 +18,9 @@ Welcome to Concorda wiki. Please choose your topic below.
 * [Server API](./server-api.md)
 * [Configuring Clients](./configuring-clients.md)
 
+**Demo**
 
+* [Demo Fuge system](./demo-fuge.md)
 
 
 
