@@ -22,6 +22,4 @@ Welcome to Concorda wiki. Please choose your topic below.
 
 
 
-
-
 [Banner]: https://raw.githubusercontent.com/nearform/concorda-dashboard/master/public/client/assets/img/logo-concorda-banner.png
