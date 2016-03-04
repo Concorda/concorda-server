@@ -1,6 +1,6 @@
 ![Banner][]
 
-# Concorda Dashboard API
+# Concorda
 Concorda: User management system
 
 - __Lead Maintainer:__ [Mircea Alexandru][lead]
@@ -8,9 +8,6 @@ Concorda: User management system
 
 
 A detailed documentation can be found in [Concorda wiki](https://github.com/nearform/concorda/blob/master/doc/Readme.md).
-
-
-
 
 # Contributing
 The [Concorda][] encourages open participation. If you feel you can help in any way, be it with
