@@ -18,6 +18,10 @@ Welcome to Concorda wiki. Please choose your topic below.
 * [Server API](./server-api.md)
 * [Configuring Clients](./configuring-clients.md)
 
+**Client**
+
+* [Using Concorda plugin](./using-concorda-plugin.md)
+
 **Demo**
 
 * [Demo Fuge system](./demo-fuge.md)
