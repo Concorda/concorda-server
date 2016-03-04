@@ -48,11 +48,6 @@ server.register(plugins, function (err) {
   server.start(function (err) {
     endIfErr(err)
 
-    setTimeout(function () {
-      server.seneca
-        .use('mesh', {auto: true, pin: ['role: user', 'role: concorda-communication']})
-    }, 3 * 1000)
-
     console.log('Listening at: ' + server.info.port)
   })
 })
