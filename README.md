@@ -7,7 +7,7 @@ Concorda: User management system
 - __Sponsor:__ [nearForm][]
 
 
-A detailed documentation can be found in [Concorda wiki](https://github.com/nearform/concorda/blob/master/doc/Readme.md).
+A detailed documentation can be found in [Concorda wiki](https://github.com/Concorda/docs).
 
 # Contributing
 The [Concorda][] encourages open participation. If you feel you can help in any way, be it with
@@ -19,11 +19,9 @@ documentation, examples, extra testing, or new features please get in touch.
 Copyright (c) 2016, nearForm and other contributors.
 Licensed under [MIT][].
 
-[Banner]: https://raw.githubusercontent.com/nearform/concorda-dashboard/master/public/client/assets/img/logo-concorda-banner.png
-[here]: https://github.com/nearform/vidi-concorda-nodezoo-system
+[Banner]: https://raw.githubusercontent.com/concorda/concorda-dashboard/master/public/client/assets/img/logo-concorda-banner.png
 [MIT]: ./LICENSE
 [Code of Conduct]: https://github.com/nearform/vidi-contrib/docs/code_of_conduct.md
-[Concorda]: https://github.com/nearform/concorda-api
+[Concorda]: https://github.com/concorda
 [lead]: https://github.com/mirceaalexandru
 [nearForm]: http://www.nearform.com/
-[NodeZoo]: http://www.nodezoo.com/

@@ -1,6 +1,6 @@
 {
   "name": "concorda",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Seneca plugin for Concorda system",
   "author": "Mircea Alexandru (http://alexandrumircea.ro/)",
   "contributors": [
@@ -13,7 +13,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git://github.com/nearform/concorda.git"
+    "url": "git://github.com/concorda/concorda.git"
   },
   "scripts": {
     "test": "lab test/*.test.js -r console -v -L -m 3000",
