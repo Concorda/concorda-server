@@ -6,6 +6,7 @@ CREATE TABLE IF NOT EXISTS client_data
   registerType text[],
   authType json,
   configured boolean,
+  appkey character varying NOT NULL UNIQUE,
   CONSTRAINT pk_client_data_id PRIMARY KEY (id)
 )
 WITH (
