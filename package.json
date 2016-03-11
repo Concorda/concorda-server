@@ -13,7 +13,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git://github.com/nearform/concorda.git"
+    "url": "git://github.com/concorda/concorda.git"
   },
   "scripts": {
     "test": "lab test/*.test.js -r console -v -L -m 3000",
@@ -31,11 +31,13 @@
     "hapi-auth-cookie": "6.0.0",
     "jsonic": "0.2.2",
     "lodash": "3.10.1",
+    "postgrator": "2.7.0",
     "seneca-auth": "1.0.x",
     "seneca-balance-client": "0.2.0",
     "seneca-github-auth": "github:mirceaalexandru/seneca-github-auth",
     "seneca-google-auth": "1.0.x",
     "seneca-mail": "0.2.2",
+    "seneca-postgres-store": "1.1.2",
     "seneca-mesh": "0.5.0",
     "seneca-twitter-auth": "github:mirceaalexandru/seneca-twitter-auth",
     "seneca-user": "1.0.x"
