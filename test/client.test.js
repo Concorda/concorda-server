@@ -8,6 +8,8 @@ const suite = lab.suite
 const test = lab.test
 const before = lab.before
 const after = lab.after
+var Code = require('code')
+var expect = Code.expect
 
 var Util = require('./hapi-init.js')
 
@@ -16,13 +18,16 @@ suite('Hapi client suite tests ', () => {
   let cookie
   let user = {nick: 'u1', name: 'nu1', email: 'u1@example.com', password: 'u1', active: true}
   let client = {name: 'Client', active: true}
-  var clientId
+  let userId
+  let clientId
+  let seneca
 
   before({}, function (done) {
     Util.init({}, function (err, srv) {
       Assert.ok(!err)
 
       server = srv
+      seneca = server.seneca
 
       done()
     })
@@ -47,7 +52,7 @@ suite('Hapi client suite tests ', () => {
       Assert(JSON.parse(res.payload).login)
 
       cookie = Util.checkCookie(res)
-
+      userId = JSON.parse(res.payload).user.id
       done()
     })
   })
@@ -66,6 +71,7 @@ suite('Hapi client suite tests ', () => {
       Assert(JSON.parse(res.payload).ok)
       Assert(JSON.parse(res.payload).data)
 
+      clientId = JSON.parse(res.payload).data.id
       done()
     })
   })
@@ -116,6 +122,34 @@ suite('Hapi client suite tests ', () => {
       Assert.equal(0, JSON.parse(res.payload).data.length)
       Assert.equal(0, JSON.parse(res.payload).count)
 
+      done()
+    })
+  })
+
+  test('add client to user', (done) => {
+    seneca.act('role: concorda, cmd: setUserClients', {userId: userId, clients: [clientId]}, (err, response) => {
+      expect(err).to.not.exist()
+      expect(response).to.exist()
+      expect(response.ok).to.exist()
+      expect(response.ok).to.be.true()
+      expect(response.data).to.exist()
+      expect(response.data.clients).to.exist()
+      expect(response.data.clients).to.be.an.array()
+      expect(response.data.clients).to.have.length(1)
+      done()
+    })
+  })
+
+  test('remove client to user', (done) => {
+    seneca.act('role: concorda, cmd: setUserClients', {userId: userId, clients: []}, (err, response) => {
+      expect(err).to.not.exist()
+      expect(response).to.exist()
+      expect(response.ok).to.exist()
+      expect(response.ok).to.be.true()
+      expect(response.data).to.exist()
+      expect(response.data.clients).to.exist()
+      expect(response.data.clients).to.be.an.array()
+      expect(response.data.clients).to.have.length(0)
       done()
     })
   })
