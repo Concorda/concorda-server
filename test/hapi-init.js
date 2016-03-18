@@ -9,7 +9,7 @@ const ConcordaCore = require('../lib/impl/concorda-core')
 // services
 const Client = require('../lib/client')
 const User = require('../lib/user')
-const Tag = require('../lib/tag')
+const Group = require('../lib/group')
 
 const ExternalAuth = require('../lib/auth')
 
@@ -41,7 +41,7 @@ exports.init = function (options, done) {
     si.ready(function () {
       si
         .use(User, options)
-        .use(Tag, options)
+        .use(Group, options)
         .use(Client, options)
 
       si.ready(function () {

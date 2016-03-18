@@ -10,10 +10,10 @@ var expect = Code.expect
 
 const Init = require('./si-init')
 
-suite('Tags test suite ', () => {
+suite('Groups test suite ', () => {
   var seneca
   var userId
-  var tagId
+  var groupId
 
   before({}, function (done) {
     Init.init({}, function (err, si) {
@@ -25,23 +25,23 @@ suite('Tags test suite ', () => {
     })
   })
 
-  test('add tag', (done) => {
-    seneca.act('role: concorda, cmd: addTag', {data: {name: 'Concorda'}}, (err, response) => {
+  test('add group', (done) => {
+    seneca.act('role: concorda, cmd: addGroup', {data: {name: 'Concorda'}}, (err, response) => {
       expect(err).to.not.exist()
       expect(response).to.exist()
       expect(response.ok).to.exist()
       expect(response.ok).to.be.true()
       expect(response.data.name).to.exist()
       expect(response.data.name).to.equal('Concorda')
-      tagId = response.data.id
-      expect(tagId).to.exist()
+      groupId = response.data.id
+      expect(groupId).to.exist()
 
       done()
     })
   })
 
-  test('list tag', (done) => {
-    seneca.act('role: concorda, cmd: listTags', (err, response) => {
+  test('list group', (done) => {
+    seneca.act('role: concorda, cmd: listGroups', (err, response) => {
       expect(err).to.not.exist()
       expect(response).to.exist()
       expect(response.ok).to.exist()
@@ -65,30 +65,30 @@ suite('Tags test suite ', () => {
     })
   })
 
-  test('add tag to user', (done) => {
-    seneca.act('role: concorda, cmd: setUserTags', {userId: userId, tag: [tagId]}, (err, response) => {
+  test('add group to user', (done) => {
+    seneca.act('role: concorda, cmd: setUserGroups', {userId: userId, groups: [groupId]}, (err, response) => {
       expect(err).to.not.exist()
       expect(response).to.exist()
       expect(response.ok).to.exist()
       expect(response.ok).to.be.true()
       expect(response.data).to.exist()
-      expect(response.data.tags).to.exist()
-      expect(response.data.tags).to.be.an.array()
-      expect(response.data.tags).to.have.length(1)
+      expect(response.data.groups).to.exist()
+      expect(response.data.groups).to.be.an.array()
+      expect(response.data.groups).to.have.length(1)
       done()
     })
   })
 
-  test('remove tag to user', (done) => {
-    seneca.act('role: concorda, cmd: setUserTags', {userId: userId, tags: []}, (err, response) => {
+  test('remove group to user', (done) => {
+    seneca.act('role: concorda, cmd: setUserGroups', {userId: userId, groups: []}, (err, response) => {
       expect(err).to.not.exist()
       expect(response).to.exist()
       expect(response.ok).to.exist()
       expect(response.ok).to.be.true()
       expect(response.data).to.exist()
-      expect(response.data.tags).to.exist()
-      expect(response.data.tags).to.be.an.array()
-      expect(response.data.tags).to.have.length(0)
+      expect(response.data.groups).to.exist()
+      expect(response.data.groups).to.be.an.array()
+      expect(response.data.groups).to.have.length(0)
       done()
     })
   })
