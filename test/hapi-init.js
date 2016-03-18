@@ -23,7 +23,7 @@ exports.init = function (options, done) {
       register: Chairo,
       options: {
         web: true,
-        log: 'silent'
+        log: {level: 'INFO'}
       }
     }
   ], function (err) {
