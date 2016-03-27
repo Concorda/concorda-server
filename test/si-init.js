@@ -6,7 +6,7 @@ exports.init = function (options, done) {
     .use(require('seneca-user'))
     .use(require('../lib/impl/services/user'))
     .use(require('../lib/impl/services/client'))
-    .use(require('../lib/impl/services/tag'))
+    .use(require('../lib/impl/services/group'))
   seneca.ready(() => {
     done(null, seneca)
   })
