@@ -37,8 +37,8 @@
     "seneca-github-auth": "github:mirceaalexandru/seneca-github-auth",
     "seneca-google-auth": "1.0.x",
     "seneca-mail": "0.2.2",
-    "seneca-postgres-store": "1.1.2",
     "seneca-mesh": "0.5.0",
+    "seneca-postgres-store": "1.1.x",
     "seneca-twitter-auth": "github:mirceaalexandru/seneca-twitter-auth",
     "seneca-user": "1.0.x"
   },
