@@ -3,7 +3,7 @@ var Path = require('path')
 module.exports = function () {
   function mailConfig () {
     return {
-      folder: Path.join(Path.resolve(__dirname), '/../server/email-templates'),
+//      folder: Path.join(Path.resolve(__dirname), '/../server/email-templates'),
       mail: {
         from: 'no-reply@concorda.com'
       },
@@ -59,8 +59,8 @@ module.exports = function () {
 
   function Concorda () {
     return {
-      external_api: process.env.EXTERNAL_API || false,
-      external_core: process.env.EXTERNAL_CORE || false
+      external_api: false,// force this to use internal core regardless the env var values
+      external_core: false// force this to use internal core regardless the env var values
     }
   }
 

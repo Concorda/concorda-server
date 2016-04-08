@@ -7,9 +7,12 @@ var Bell = require('bell')
 var Chairo = require('chairo')
 var Cookie = require('hapi-auth-cookie')
 var DotEnv = require('dotenv')
+const LoadConfig = require('./config/config.js')
 
 // load env config file
 DotEnv.config({path: './config/production.env'})
+
+const Config = LoadConfig()
 
 // Options for our hapi plugins.
 var opts = {
@@ -46,7 +49,7 @@ var plugins = [
 server.register(plugins, function (err) {
   endIfErr(err)
 
-  server.seneca.use(Concorda, {local: true})
+  server.seneca.use(Concorda, Config)
 
   // Kick off the server.
   server.start(function (err) {
