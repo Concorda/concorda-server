@@ -17,12 +17,14 @@
   },
   "scripts": {
     "test": "lab --pattern test -r console -v -L -m 3000",
-    "lint": "lab test -dL"
+    "lint": "lab test -dL",
+    "start": "node ./start.js"
   },
   "dependencies": {
     "async": "1.5.x",
     "bell": "6.3.0",
     "chairo": "2.0.x",
+    "dotenv": "^2.0.0",
     "ejs": "2.4.1",
     "eraro": "0.4.1",
     "eslint-config-hapi": "9.1.0",

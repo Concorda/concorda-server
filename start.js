@@ -6,6 +6,10 @@ var Hapi = require('hapi')
 var Bell = require('bell')
 var Chairo = require('chairo')
 var Cookie = require('hapi-auth-cookie')
+var DotEnv = require('dotenv')
+
+// load env config file
+DotEnv.config({path: './config/production.env'})
 
 // Options for our hapi plugins.
 var opts = {
