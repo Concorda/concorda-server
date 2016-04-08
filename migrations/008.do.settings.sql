@@ -16,3 +16,5 @@ ALTER TABLE client_data DROP COLUMN register_type;
 ALTER TABLE client_data DROP COLUMN auth_type;
 ALTER TABLE client_data DROP COLUMN configured;
 ALTER TABLE client_data DROP COLUMN email_template_folder;
+
+ALTER TABLE sys_login ADD COLUMN appkey text;
