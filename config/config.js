@@ -1,5 +1,3 @@
-var Path = require('path')
-
 module.exports = function () {
   function mailConfig () {
     return {
@@ -58,8 +56,8 @@ module.exports = function () {
 
   function Concorda () {
     return {
-      external_api: false,// force this to use internal core regardless the env var values
-      external_core: false// force this to use internal core regardless the env var values
+      external_api: false, // force this to use internal core regardless the env var values
+      external_core: false // force this to use internal core regardless the env var values
     }
   }
 
