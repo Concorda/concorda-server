@@ -3,7 +3,6 @@ var Path = require('path')
 module.exports = function () {
   function mailConfig () {
     return {
-//      folder: Path.join(Path.resolve(__dirname), '/../server/email-templates'),
       mail: {
         from: 'no-reply@concorda.com'
       },
