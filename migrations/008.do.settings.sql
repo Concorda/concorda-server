@@ -5,6 +5,7 @@ CREATE TABLE IF NOT EXISTS settings
   auth_type json,
   configured boolean,
   password_policy json,
+  user_policy json,
   email_template_folder text,
   CONSTRAINT pk_settings_id PRIMARY KEY (id)
 )
