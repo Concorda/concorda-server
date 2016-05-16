@@ -5,12 +5,16 @@ node_js:
   - "5"
   - "4"
 
+script:
+  - sudo unlink /usr/bin/gcc && sudo ln -s /usr/bin/gcc-5 /usr/bin/gcc
+  - gcc --version
 addons:
- apt:
-   sources:
-   - ubuntu-toolchain-r-test
-   packages:
-   - g++-4.8
+  apt:
+    sources:
+    - ubuntu-toolchain-r-test
+    packages:
+    - gcc-5
+    - g++-5
 
 addons:
   postgresql: "9.4"
