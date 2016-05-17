@@ -14,7 +14,7 @@ var Util = require('./hapi-init.js')
 suite('Hapi user session suite tests ', function () {
   let cookie
   let server
-  let user = {nick: 'u1', name: 'nu1', email: 'u1@example.com', password: 'u1', active: true}
+  let user = {nick: 'u1', name: 'nu1', email: 'u1@example.com', password: '123123123aZ', repeat: '123123123aZ'}
 
   before({}, function (done) {
     Util.init({}, function (err, srv) {
@@ -32,7 +32,7 @@ suite('Hapi user session suite tests ', function () {
   })
 
   test('register user test', function (done) {
-    var url = '/auth/register'
+    var url = '/api/v1/auth/register'
 
     server.inject({
       url: url,
@@ -52,7 +52,7 @@ suite('Hapi user session suite tests ', function () {
   })
 
   test('close user session test', function (done) {
-    var url = '/api/user/' + user.id + '/session/close'
+    var url = '/api/v1/admin/user/' + user.id + '/session/close'
 
     server.inject({
       url: url,

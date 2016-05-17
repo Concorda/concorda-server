@@ -33,7 +33,7 @@ suite('Hapi user suite tests ', () => {
   })
 
   test('register user test', (done) => {
-    let url = '/auth/register'
+    let url = '/api/v1/auth/register'
 
     server.inject({
       url: url,
@@ -52,7 +52,7 @@ suite('Hapi user suite tests ', () => {
   })
 
   test('list user test', (done) => {
-    let url = '/api/user'
+    let url = '/api/v1/admin/user'
 
     server.inject({
       url: url,
@@ -68,7 +68,7 @@ suite('Hapi user suite tests ', () => {
   })
 
   test('load user', (done) => {
-    let url = '/api/user'
+    let url = '/api/v1/admin/user'
 
     server.inject({
       url: url,
@@ -92,7 +92,7 @@ suite('Hapi user suite tests ', () => {
   })
 
   test('register another user test', (done) => {
-    let url = '/api/user'
+    let url = '/api/v1/admin/user'
 
     server.inject({
       url: url,
@@ -114,7 +114,7 @@ suite('Hapi user suite tests ', () => {
 
   let newName = 'newName'
   test('update another user test', (done) => {
-    let url = '/api/user'
+    let url = '/api/v1/admin/user'
 
     user2.name = newName
     server.inject({
@@ -134,7 +134,7 @@ suite('Hapi user suite tests ', () => {
   })
 
   test('list user test with name sorted ASC', (done) => {
-    let url = '/api/user?order={name: 1}'
+    let url = '/api/v1/admin/user?order={name: 1}'
 
     server.inject({
       url: url,

@@ -16,7 +16,7 @@
     "url": "git://github.com/concorda/concorda-server.git"
   },
   "scripts": {
-    "test": "lab --pattern test -r console -v -L -m 3000",
+    "test": "lab --pattern test -r console -v -L -m 10000",
     "lint": "lab test -dL",
     "start": "node ./start.js"
   },
