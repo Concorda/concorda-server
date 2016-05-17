@@ -39,7 +39,7 @@ suite('Hapi client suite tests ', () => {
   })
 
   test('register user test', (done) => {
-    let url = '/auth/register'
+    let url = '/api/v1/auth/register'
 
     server.inject({
       url: url,
@@ -47,6 +47,7 @@ suite('Hapi client suite tests ', () => {
       payload: user
     }, function (res) {
       Assert.equal(200, res.statusCode)
+      console.log('')
       Assert(JSON.parse(res.payload).ok)
       Assert(JSON.parse(res.payload).user)
       Assert(JSON.parse(res.payload).login)
@@ -59,7 +60,7 @@ suite('Hapi client suite tests ', () => {
 
 
   test('register client test', (done) => {
-    let url = '/api/client'
+    let url = '/api/v1/admin/client'
 
     server.inject({
       url: url,
@@ -77,7 +78,7 @@ suite('Hapi client suite tests ', () => {
   })
 
   test('list clients test', (done) => {
-    let url = '/api/client'
+    let url = '/api/v1/admin/client'
 
     server.inject({
       url: url,
@@ -96,7 +97,7 @@ suite('Hapi client suite tests ', () => {
   })
 
   test('delete client', (done) => {
-    let url = '/api/client/' + clientId
+    let url = '/api/v1/admin/client/' + clientId
 
     server.inject({
       url: url,
@@ -111,7 +112,7 @@ suite('Hapi client suite tests ', () => {
   })
 
   test('list clients test', (done) => {
-    let url = '/api/client'
+    let url = '/api/v1/admin/client'
 
     server.inject({
       url: url,
