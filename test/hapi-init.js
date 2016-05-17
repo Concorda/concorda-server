@@ -4,7 +4,8 @@ exports.init = function (options, done) {
   Server({
     server: {
       port: 3070
-    }
+    },
+    db_name: 'concordatest'
   }, function (err, server) {
     if (err) {
       console.log('Error preparing Hapi: ', err)
