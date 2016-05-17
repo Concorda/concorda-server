@@ -30,6 +30,6 @@ function endIfErr (err) {
 }
 
 // Create our server.
-Server(opts, function(err, server){
+Server(opts, function (err, server) {
   endIfErr(err)
 })
