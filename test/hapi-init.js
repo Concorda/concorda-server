@@ -1,57 +1,22 @@
-const Chairo = require('chairo')
-const Hapi = require('hapi')
-const Bell = require('bell')
-const Hapi_Cookie = require('hapi-auth-cookie')
-
-const InternalCore = require('../lib/redirect/core_internal')
-const ConcordaCore = require('../lib/impl/concorda-core')
-
-// services
-const Client = require('../lib/client')
-const User = require('../lib/user')
-const Group = require('../lib/group')
-
-const ExternalAuth = require('../lib/auth')
+var Server = require('../server')
 
 exports.init = function (options, done) {
-  var server = new Hapi.Server()
-  server.connection()
-
-  server.register([
-    Hapi_Cookie,
-    Bell, {
-      register: Chairo,
-      options: {
-        web: true,
-        log: {level: 'INFO'}
-      }
+  Server({
+    server: {
+      port: 3070
     }
-  ], function (err) {
+  }, function (err, server) {
     if (err) {
-      return done(err)
+      console.log('Error preparing Hapi: ', err)
     }
-
-    var si = server.seneca
-
-    si
-      .use(ExternalAuth, options)
-      .use(InternalCore, options)
-      .use(ConcordaCore, options)
-
-    si.ready(function () {
-      si
-        .use(User, options)
-        .use(Group, options)
-        .use(Client, options)
-
-      si.ready(function () {
-        done(null, server)
-      })
-    })
+    setTimeout(function () {
+      done(err, server)
+    }, 5 * 1000)
   })
 }
 
 exports.checkCookie = function (res) {
+  console.log(res.headers['set-cookie'])
   var cookie = res.headers['set-cookie'][0]
   cookie = cookie.match(/(?:[^\x00-\x20\(\)<>@\,;\:\\"\/\[\]\?\=\{\}\x7F]+)\s*=\s*(?:([^\x00-\x20\"\,\;\\\x7F]*))/)[1]
   return cookie
