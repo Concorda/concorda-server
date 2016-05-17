@@ -32,4 +32,11 @@ function endIfErr (err) {
 // Create our server.
 Server(opts, function (err, server) {
   endIfErr(err)
+
+  // Kick off the server.
+  server.start(function (err) {
+    endIfErr(err)
+
+    server.seneca.log.debug('Listening at: ' + server.info.port)
+  })
 })

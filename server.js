@@ -27,14 +27,6 @@ module.exports = function (options, done) {
 
     server.seneca.use(Concorda, options)
 
-    // Kick off the server.
-    server.start(function (err) {
-      if (err) {
-        return done(err)
-      }
-
-      server.seneca.log.debug('Listening at: ' + server.info.port)
-      done(err, server)
-    })
+    done(err, server)
   })
 }
