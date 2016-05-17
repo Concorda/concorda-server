@@ -1,30 +1,25 @@
 'use strict'
 
-const Concorda = require('./lib/index')
-
-var Hapi = require('hapi')
-var Bell = require('bell')
-var Chairo = require('chairo')
-var Cookie = require('hapi-auth-cookie')
-var DotEnv = require('dotenv')
-const LoadConfig = require('./config/config.js')
+let Server = require('./server')
+let _ = require('lodash')
 
 // load env config file
+var DotEnv = require('dotenv')
 DotEnv.config({path: './config/production.env'})
 
+const LoadConfig = require('./config/config.js')
 const Config = LoadConfig()
 
-// Options for our hapi plugins.
-var opts = {
+var opts = _.extend({
   server: {
     port: process.env.PORT || 3070
   },
   chairo: {
     timeout: 2000,
     secure: true,
-    log: 'console'
+    log: 'print'
   }
-}
+}, Config)
 
 // Log and end the process on err.
 function endIfErr (err) {
@@ -35,26 +30,6 @@ function endIfErr (err) {
 }
 
 // Create our server.
-var server = new Hapi.Server({ debug: { request: ['error'] } })
-server.connection({port: opts.server.port})
-
-// Declare our Hapi plugin list.
-var plugins = [
-  {register: Bell},
-  {register: Cookie},
-  {register: Chairo, options: opts.chairo}
-]
-
-// Register our plugins.
-server.register(plugins, function (err) {
+Server(opts, function(err, server){
   endIfErr(err)
-
-  server.seneca.use(Concorda, Config)
-
-  // Kick off the server.
-  server.start(function (err) {
-    endIfErr(err)
-
-    console.log('Listening at: ' + server.info.port)
-  })
 })
