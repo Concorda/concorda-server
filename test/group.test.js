@@ -8,7 +8,7 @@ const before = lab.before
 var Code = require('code')
 var expect = Code.expect
 
-const Init = require('./si-init')
+const Init = require('./hapi-init')
 
 suite('Groups test suite ', () => {
   var seneca
@@ -16,11 +16,11 @@ suite('Groups test suite ', () => {
   var groupId
 
   before({}, function (done) {
-    Init.init({}, function (err, si) {
+    Init.init({}, function (err, server) {
       expect(err).to.not.exist()
-      expect(si).to.exist()
+      expect(server).to.exist()
 
-      seneca = si
+      seneca = server.seneca
       done()
     })
   })
@@ -53,7 +53,7 @@ suite('Groups test suite ', () => {
   })
 
   test('add user', (done) => {
-    seneca.act('role: concorda, cmd: createUser', {data: {nick: 'u1', password: 'u1', email: 'some@email.com', firstName: 'John'}}, (err, response) => {
+    seneca.act('role: concorda, cmd: createUser', {data: {password: '123123123aZ', email: 'john@some.com', repeat: '123123123aZ', name: 'John'}}, (err, response) => {
       expect(err).to.not.exist()
       expect(response).to.exist()
       expect(response.ok).to.exist()
