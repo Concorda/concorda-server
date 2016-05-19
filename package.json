@@ -16,8 +16,8 @@
     "url": "git://github.com/concorda/concorda-server.git"
   },
   "scripts": {
-    "test": "lab --pattern test -r console -v -L -m 10000",
-    "local-test": "export PGPASSWORD='concorda'; psql -U concorda -h localhost -c 'DROP DATABASE IF EXISTS concordatest;' && psql -U concorda -h localhost -c 'CREATE DATABASE concordatest WITH ENCODING='UTF8' CONNECTION LIMIT=-1;' && lab --pattern test -r console -v -L -m 10000",
+    "test": "npm run test-setup && lab --pattern test -r console -v -L -m 10000",
+    "test-setup": "PGPASSWORD=concorda psql -U concorda -h localhost -f test/dbschema.sql",
     "lint": "lab test -dL",
     "start": "node ./start.js"
   },
