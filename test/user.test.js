@@ -9,7 +9,7 @@ const test = lab.test
 const before = lab.before
 const after = lab.after
 
-var Util = require('./hapi-init.js')
+var Util = require('./test-init.js')
 
 suite('Hapi user suite tests ', () => {
   let server

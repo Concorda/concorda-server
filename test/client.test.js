@@ -11,7 +11,7 @@ const after = lab.after
 const Code = require('code')
 const expect = Code.expect
 
-var Util = require('./hapi-init.js')
+var Util = require('./test-init.js')
 
 suite('Hapi client suite tests ', () => {
   let server

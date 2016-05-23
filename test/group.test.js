@@ -8,7 +8,7 @@ const before = lab.before
 var Code = require('code')
 var expect = Code.expect
 
-const Init = require('./hapi-init')
+const Init = require('./test-init')
 
 suite('Groups test suite ', () => {
   var seneca
