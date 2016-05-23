@@ -33,22 +33,6 @@ suite('Hapi user suite tests ', () => {
     Util.after(seneca, done)
   })
 
-  test('register user test', (done) => {
-    let url = '/api/v1/auth/register'
-
-    server.inject({
-      url: url,
-      method: 'POST',
-      payload: user
-    }, function (res) {
-      Assert.equal(200, res.statusCode)
-      Assert(JSON.parse(res.payload).ok)
-      Assert(JSON.parse(res.payload).data)
-
-      done()
-    })
-  })
-
   let token
   test('login default user failed test', (done) => {
     let url = '/api/v1/auth/login'
@@ -98,6 +82,22 @@ suite('Hapi user suite tests ', () => {
     })
   })
 
+  test('register user test', (done) => {
+    let url = '/api/v1/auth/register'
+
+    server.inject({
+      url: url,
+      method: 'POST',
+      payload: user
+    }, function (res) {
+      Assert.equal(200, res.statusCode)
+      Assert(JSON.parse(res.payload).ok)
+      Assert(JSON.parse(res.payload).data)
+
+      done()
+    })
+  })
+
   test('list user test', (done) => {
     let url = '/api/v1/admin/user'
 
@@ -107,8 +107,8 @@ suite('Hapi user suite tests ', () => {
       headers: { cookie: 'seneca-login=' + cookie }
     }, function (res) {
       Assert.equal(200, res.statusCode)
-      Assert.equal(7, JSON.parse(res.payload).data.length)
-      Assert.equal(7, JSON.parse(res.payload).count)
+      Assert.equal(1, JSON.parse(res.payload).data.length)
+      Assert.equal(1, JSON.parse(res.payload).count)
 
       done()
     })
@@ -188,8 +188,8 @@ suite('Hapi user suite tests ', () => {
       headers: { cookie: 'seneca-login=' + cookie }
     }, function (res) {
       Assert.equal(200, res.statusCode)
-      Assert.equal(8, JSON.parse(res.payload).data.length)
-      Assert.equal(8, JSON.parse(res.payload).count)
+      Assert.equal(2, JSON.parse(res.payload).data.length)
+      Assert.equal(2, JSON.parse(res.payload).count)
 
       Assert.equal(newName, JSON.parse(res.payload).data[0].name)
 
