@@ -73,8 +73,8 @@ suite('Hapi user suite tests ', () => {
       headers: { cookie: 'seneca-login=' + cookie }
     }, function (res) {
       Assert.equal(200, res.statusCode)
-      Assert.equal(5, JSON.parse(res.payload).data.length)
-      Assert.equal(5, JSON.parse(res.payload).count)
+      Assert.equal(7, JSON.parse(res.payload).data.length)
+      Assert.equal(7, JSON.parse(res.payload).count)
 
       done()
     })
@@ -154,8 +154,8 @@ suite('Hapi user suite tests ', () => {
       headers: { cookie: 'seneca-login=' + cookie }
     }, function (res) {
       Assert.equal(200, res.statusCode)
-      Assert.equal(6, JSON.parse(res.payload).data.length)
-      Assert.equal(6, JSON.parse(res.payload).count)
+      Assert.equal(8, JSON.parse(res.payload).data.length)
+      Assert.equal(8, JSON.parse(res.payload).count)
 
       Assert.equal(newName, JSON.parse(res.payload).data[0].name)
 

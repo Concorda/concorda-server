@@ -9,17 +9,18 @@ const test = lab.test
 const before = lab.before
 const after = lab.after
 
-var Util = require('./test-init.js')
+let Util = require('./test-init.js')
+let seneca
 
-suite('Force reset pwd after 2 failed login ', () => {
+suite('Force reset pwd after interval', () => {
   let server
   let cookie
   let user = {
     name: 'someName',
-    email: 'someUser@example.com',
+    email: 'someUser3@example.com',
     password: '123123123aZ',
     repeat: '123123123aZ',
-    appkey: 'client2'
+    appkey: 'client3'
   }
 
   before({}, function (done) {
@@ -27,14 +28,16 @@ suite('Force reset pwd after 2 failed login ', () => {
       'requireLowercase': '0',
       'requireNumeric': '0',
       'requireUppercase': '0',
-      'forceResetPasswordAfterFailedCount': 2,
-      'forceChangePasswordAfterInterval': 0,
+      'forceResetPasswordAfterFailedCount': 0,
+      'forceChangePasswordAfterInterval': 1,
       'minLength': 6
     })
+
     Util.init({}, function (err, srv) {
       Assert.ok(!err)
 
       server = srv
+      seneca = server.seneca
 
       done()
     })
@@ -67,7 +70,7 @@ suite('Force reset pwd after 2 failed login ', () => {
     server.inject({
       url: url,
       method: 'POST',
-      payload: {name: 'client2', appkey: 'client2'},
+      payload: {name: 'client3', appkey: 'client3'},
       headers: {cookie: 'seneca-login=' + cookie}
     }, function (res) {
       Assert.equal(200, res.statusCode)
@@ -109,49 +112,21 @@ suite('Force reset pwd after 2 failed login ', () => {
     })
   })
 
-  test('login failed #1 user test', (done) => {
-    let url = '/api/v1/auth/login'
-    server.inject({
-      url: url,
-      method: 'POST',
-      payload: {email: user.email, password: user.password + 'wrong', appkey: user.appkey}
-    }, function (res) {
-      Assert.equal(200, res.statusCode)
-      Assert(!JSON.parse(res.payload).ok)
-
-      done()
+  // change password timestamp for 2 days ago to test this feature
+  test('change pwd timestamp', (done) => {
+    seneca.make$('sys', 'user').load$({email: user.email}, function (err, user) {
+      Assert(!err)
+      Assert(user)
+      Assert(user.passwordChangeTimestamp)
+      user.passwordChangeTimestamp = new Date(user.passwordChangeTimestamp.getTime() - 2 * 24 * 60 * 60 * 1000)
+      user.save$(function (err) {
+        Assert(!err)
+        done()
+      })
     })
   })
 
-  test('login failed #2 user test', (done) => {
-    let url = '/api/v1/auth/login'
-    server.inject({
-      url: url,
-      method: 'POST',
-      payload: {email: user.email, password: user.password + 'wrong', appkey: user.appkey}
-    }, function (res) {
-      Assert.equal(200, res.statusCode)
-      Assert(!JSON.parse(res.payload).ok)
-
-      done()
-    })
-  })
-
-  test('login failed #3 user test', (done) => {
-    let url = '/api/v1/auth/login'
-    server.inject({
-      url: url,
-      method: 'POST',
-      payload: {email: user.email, password: user.password + 'wrong', appkey: user.appkey}
-    }, function (res) {
-      Assert.equal(200, res.statusCode)
-      Assert(!JSON.parse(res.payload).ok)
-
-      done()
-    })
-  })
-
-  test('login user test - after 2 failed logins force reset', (done) => {
+  test('login failed test - after interval', (done) => {
     let url = '/api/v1/auth/login'
     server.inject({
       url: url,
@@ -160,6 +135,9 @@ suite('Force reset pwd after 2 failed login ', () => {
     }, function (res) {
       Assert.equal(200, res.statusCode)
       Assert(!JSON.parse(res.payload).ok)
+      Assert(JSON.parse(res.payload).why)
+      Assert(JSON.parse(res.payload).token)
+      Assert.equal(JSON.parse(res.payload).code, 2)
 
       done()
     })
