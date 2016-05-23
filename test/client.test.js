@@ -73,6 +73,54 @@ suite('Hapi client suite tests ', () => {
     })
   })
 
+  let token
+  test('login default user failed test', (done) => {
+    let url = '/api/v1/auth/login'
+    server.inject({
+      url: url,
+      method: 'POST',
+      payload: {email: 'admin@concorda.com', password: 'concorda', appkey: 'concorda'}
+    }, function (res) {
+      Assert.equal(200, res.statusCode)
+      Assert(!JSON.parse(res.payload).ok)
+      Assert(JSON.parse(res.payload).why)
+      Assert(JSON.parse(res.payload).token)
+      Assert.equal(JSON.parse(res.payload).code, 2)
+
+      token = JSON.parse(res.payload).token
+      done()
+    })
+  })
+
+  test('verify reset token test', (done) => {
+    let url = '/api/v1/auth/load_reset'
+    server.inject({
+      url: url,
+      method: 'POST',
+      payload: {token: token}
+    }, function (res) {
+      Assert.equal(200, res.statusCode)
+      Assert(JSON.parse(res.payload).ok)
+      Assert(JSON.parse(res.payload).user)
+
+      done()
+    })
+  })
+
+  test('change password for default user test', (done) => {
+    let url = '/api/v1/auth/execute_reset'
+    server.inject({
+      url: url,
+      method: 'POST',
+      payload: {token: token, password: 'concorda', repeat: 'concorda'}
+    }, function (res) {
+      Assert.equal(200, res.statusCode)
+      Assert(JSON.parse(res.payload).ok)
+
+      done()
+    })
+  })
+
   test('login user test', (done) => {
     let url = '/api/v1/auth/login'
     server.inject({
