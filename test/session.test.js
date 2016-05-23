@@ -9,7 +9,7 @@ var test = lab.test
 var before = lab.before
 var after = lab.after
 
-var Util = require('./hapi-init.js')
+var Util = require('./test-init.js')
 
 suite('Hapi user session suite tests ', function () {
   let cookie
