@@ -14,6 +14,7 @@ var Util = require('./test-init.js')
 suite('Force reset pwd after 2 failed login ', () => {
   let server
   let cookie
+  let seneca
   let user = {
     name: 'someName',
     email: 'someUser@example.com',
@@ -35,14 +36,47 @@ suite('Force reset pwd after 2 failed login ', () => {
       Assert.ok(!err)
 
       server = srv
+      seneca = server.seneca
 
       done()
     })
   })
 
   after({}, (done) => {
-    server.seneca.close()
-    done()
+    Util.after(seneca, done)
+  })
+
+  let token
+  test('login default user failed test', (done) => {
+    let url = '/api/v1/auth/login'
+    server.inject({
+      url: url,
+      method: 'POST',
+      payload: {email: 'admin@concorda.com', password: 'concorda', appkey: 'concorda'}
+    }, function (res) {
+      Assert.equal(200, res.statusCode)
+      Assert(!JSON.parse(res.payload).ok)
+      Assert(JSON.parse(res.payload).why)
+      Assert(JSON.parse(res.payload).token)
+      Assert.equal(JSON.parse(res.payload).code, 2)
+
+      token = JSON.parse(res.payload).token
+      done()
+    })
+  })
+
+  test('change password for default user test', (done) => {
+    let url = '/api/v1/auth/execute_reset'
+    server.inject({
+      url: url,
+      method: 'POST',
+      payload: {token: token, password: 'concorda', repeat: 'concorda'}
+    }, function (res) {
+      Assert.equal(200, res.statusCode)
+      Assert(JSON.parse(res.payload).ok)
+
+      done()
+    })
   })
 
   test('login user test', (done) => {

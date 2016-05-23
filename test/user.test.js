@@ -14,6 +14,7 @@ var Util = require('./test-init.js')
 suite('Hapi user suite tests ', () => {
   let server
   let cookie
+  let seneca
   let user = {nick: 'user1', name: 'user1', email: 'user1@example.com', password: '123123123aZ', repeat: '123123123aZ', appkey: 'some'}
   let user2 = {nick: 'user2', name: 'user2', email: 'user2@example.com', password: '123123123aZ', repeat: '123123123aZ'}
 
@@ -22,14 +23,14 @@ suite('Hapi user suite tests ', () => {
       Assert.ok(!err)
 
       server = srv
+      seneca = server.seneca
 
       done()
     })
   })
 
   after({}, (done) => {
-    server.seneca.close()
-    done()
+    Util.after(seneca, done)
   })
 
   test('register user test', (done) => {
@@ -43,6 +44,39 @@ suite('Hapi user suite tests ', () => {
       Assert.equal(200, res.statusCode)
       Assert(JSON.parse(res.payload).ok)
       Assert(JSON.parse(res.payload).data)
+
+      done()
+    })
+  })
+
+  let token
+  test('login default user failed test', (done) => {
+    let url = '/api/v1/auth/login'
+    server.inject({
+      url: url,
+      method: 'POST',
+      payload: {email: 'admin@concorda.com', password: 'concorda', appkey: 'concorda'}
+    }, function (res) {
+      Assert.equal(200, res.statusCode)
+      Assert(!JSON.parse(res.payload).ok)
+      Assert(JSON.parse(res.payload).why)
+      Assert(JSON.parse(res.payload).token)
+      Assert.equal(JSON.parse(res.payload).code, 2)
+
+      token = JSON.parse(res.payload).token
+      done()
+    })
+  })
+
+  test('change password for default user test', (done) => {
+    let url = '/api/v1/auth/execute_reset'
+    server.inject({
+      url: url,
+      method: 'POST',
+      payload: {token: token, password: 'concorda', repeat: 'concorda'}
+    }, function (res) {
+      Assert.equal(200, res.statusCode)
+      Assert(JSON.parse(res.payload).ok)
 
       done()
     })

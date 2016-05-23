@@ -31,7 +31,7 @@
     "hapi": "12.0.0",
     "hapi-auth-cookie": "6.0.0",
     "jsonic": "^0.2.2",
-    "lodash": "3.10.1",
+    "lodash": "4.13.x",
     "moment": "^2.13.0",
     "postgrator": "2.7.0",
     "seneca-auth": "1.0.x",

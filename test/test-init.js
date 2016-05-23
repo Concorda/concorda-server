@@ -1,4 +1,18 @@
-var Server = require('../server')
+'use strict'
+
+const Server = require('../server')
+const Async = require('async')
+
+let dbColumns = [
+  'sys_account',
+  'sys_entity',
+  'sys_group',
+  'sys_login',
+  'sys_reset',
+  'sys_user',
+  'client_token',
+  'client_data'
+]
 
 exports.init = function (options, done) {
   Server({
@@ -13,6 +27,26 @@ exports.init = function (options, done) {
     setTimeout(function () {
       done(err, server)
     }, 3 * 1000)
+  })
+}
+
+exports.after = function (seneca, done) {
+  seneca.make$().native$(function (err, client) {
+    if (err || !client) {
+      return done('Cannot clean db when tests are finished.')
+    }
+
+    Async.eachSeries(dbColumns, function truncateTables (tableName, cb) {
+      client.query(`TRUNCATE ${tableName} CASCADE`, cb)
+    },
+    function (err) {
+      if (err) {
+        return done('Cannot clean db when tests are finished.')
+      }
+
+      seneca.close()
+      done()
+    })
   })
 }
 
