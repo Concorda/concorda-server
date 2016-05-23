@@ -31,6 +31,28 @@ suite('Hapi user suite tests ', () => {
     server.seneca.close()
     done()
   })
+  test('delete user', (done) => {
+    let url = '/api/v1/admin/user'
+
+    server.inject({
+      url: url,
+      method: 'GET',
+      headers: { cookie: 'seneca-login=' + cookie }
+    }, function (res) {
+      Assert.equal(200, res.statusCode)
+      const userId = JSON.parse(res.payload).data[0].id
+
+      url = '/api/user/' + userId
+      server.inject({
+        url: url,
+        method: 'DELETE',
+        headers: { cookie: 'seneca-login=' + cookie }
+      }, function (res) {
+        Assert.equal(200, res.statusCode)
+        done()
+      })
+    })
+  })
 
   test('register user test', (done) => {
     let url = '/api/v1/auth/register'
@@ -43,6 +65,27 @@ suite('Hapi user suite tests ', () => {
       Assert.equal(200, res.statusCode)
       Assert(JSON.parse(res.payload).ok)
       Assert(JSON.parse(res.payload).data)
+
+      done()
+    })
+  })
+
+  test('edit profile information', (done) => {
+    let url = '/auth/update_user'
+
+    let post = {
+      name: 'namey',
+      email: 'fake@email.com'
+    }
+
+    server.inject({
+      url: url,
+      method: 'POST',
+      headers: { cookie: 'seneca-login=' + cookie },
+      payload: post
+    }, function (res) {
+      Assert.equal('namey', JSON.parse(res.payload))
+      Assert.equal('email', JSON.parse(res.payload).email)
 
       done()
     })
