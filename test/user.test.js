@@ -82,6 +82,22 @@ suite('Hapi user suite tests ', () => {
     })
   })
 
+  test('register client test', (done) => {
+    let url = '/api/v1/admin/client'
+
+    server.inject({
+      url: url,
+      method: 'POST',
+      payload: {name: 'Some client application', appkey: 'some'},
+      headers: { cookie: 'seneca-login=' + cookie }
+    }, function (res) {
+      Assert.equal(200, res.statusCode)
+      Assert(JSON.parse(res.payload).ok)
+      Assert(JSON.parse(res.payload).data)
+      done()
+    })
+  })
+
   test('register user test', (done) => {
     let url = '/api/v1/auth/register'
 
