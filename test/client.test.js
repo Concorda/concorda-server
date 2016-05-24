@@ -34,8 +34,7 @@ suite('Hapi client suite tests ', () => {
   })
 
   after({}, (done) => {
-    server.seneca.close()
-    done()
+    Util.after(seneca, done)
   })
 
   test('register client test', (done) => {
@@ -44,7 +43,7 @@ suite('Hapi client suite tests ', () => {
     server.inject({
       url: url,
       method: 'POST',
-      payload: {name: 'Some client applicaiton', appkey: 'some'},
+      payload: {name: 'Some client application', appkey: 'some'},
       headers: { cookie: 'seneca-login=' + cookie }
     }, function (res) {
       Assert.equal(200, res.statusCode)
