@@ -26,7 +26,7 @@ exports.init = function (options, done) {
     }
     setTimeout(function () {
       done(err, server)
-    }, 3 * 1000)
+    }, 5 * 1000)
   })
 }
 
