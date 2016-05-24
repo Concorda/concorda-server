@@ -1,0 +1,1 @@
+ALTER TABLE sys_user ALTER COLUMN pass TYPE bytea USING (pass::bytea)
