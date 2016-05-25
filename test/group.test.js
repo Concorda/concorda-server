@@ -7,8 +7,9 @@ const test = lab.test
 const before = lab.before
 var Code = require('code')
 var expect = Code.expect
+const after = lab.after
 
-const Init = require('./test-init')
+const Util = require('./test-init')
 
 suite('Groups test suite ', () => {
   var seneca
@@ -16,13 +17,17 @@ suite('Groups test suite ', () => {
   var groupId
 
   before({}, function (done) {
-    Init.init({}, function (err, server) {
+    Util.init({}, function (err, server) {
       expect(err).to.not.exist()
       expect(server).to.exist()
 
       seneca = server.seneca
       done()
     })
+  })
+
+  after({}, (done) => {
+    Util.after(seneca, done)
   })
 
   test('add group', (done) => {
