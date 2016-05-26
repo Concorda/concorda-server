@@ -37,6 +37,63 @@ suite('Hapi client suite tests ', () => {
     Util.after(seneca, done)
   })
 
+  // ////////////////////////////////////////
+  // this will "unlock" default user as this
+  // is locked to force change its password
+  // START
+  // ////////////////////////////////////////
+  let token
+  test('login default user failed test', (done) => {
+    let url = '/api/v1/auth/login'
+    server.inject({
+      url: url,
+      method: 'POST',
+      payload: {email: 'admin@concorda.com', password: 'concorda', appkey: 'concorda'}
+    }, function (res) {
+      Assert.equal(200, res.statusCode)
+      Assert(!JSON.parse(res.payload).ok)
+      Assert(JSON.parse(res.payload).why)
+      Assert(JSON.parse(res.payload).token)
+      Assert.equal(JSON.parse(res.payload).code, 2)
+
+      token = JSON.parse(res.payload).token
+      done()
+    })
+  })
+
+  test('change password for default user test', (done) => {
+    let url = '/api/v1/auth/execute_reset'
+    server.inject({
+      url: url,
+      method: 'POST',
+      payload: {token: token, password: 'concorda', repeat: 'concorda'}
+    }, function (res) {
+      Assert.equal(200, res.statusCode)
+      Assert(JSON.parse(res.payload).ok)
+
+      done()
+    })
+  })
+
+  test('login user test', (done) => {
+    let url = '/api/v1/auth/login'
+    server.inject({
+      url: url,
+      method: 'POST',
+      payload: {email: 'admin@concorda.com', password: 'concorda', appkey: 'concorda'}
+    }, function (res) {
+      Assert.equal(200, res.statusCode)
+      Assert(JSON.parse(res.payload).user)
+      Assert(JSON.parse(res.payload).login)
+
+      cookie = Util.checkCookie(res)
+      done()
+    })
+  })
+  // /////////////////////////////////////
+  // END "unlocking" default user
+  // /////////////////////////////////////
+
   test('register client test', (done) => {
     let url = '/api/v1/admin/client'
 
@@ -68,70 +125,6 @@ suite('Hapi client suite tests ', () => {
       Assert(JSON.parse(res.payload).data)
 
       userId = JSON.parse(res.payload).data.id
-      done()
-    })
-  })
-
-  let token
-  test('login default user failed test', (done) => {
-    let url = '/api/v1/auth/login'
-    server.inject({
-      url: url,
-      method: 'POST',
-      payload: {email: 'admin@concorda.com', password: 'concorda', appkey: 'concorda'}
-    }, function (res) {
-      Assert.equal(200, res.statusCode)
-      Assert(!JSON.parse(res.payload).ok)
-      Assert(JSON.parse(res.payload).why)
-      Assert(JSON.parse(res.payload).token)
-      Assert.equal(JSON.parse(res.payload).code, 2)
-
-      token = JSON.parse(res.payload).token
-      done()
-    })
-  })
-
-  test('verify reset token test', (done) => {
-    let url = '/api/v1/auth/load_reset'
-    server.inject({
-      url: url,
-      method: 'POST',
-      payload: {token: token}
-    }, function (res) {
-      Assert.equal(200, res.statusCode)
-      Assert(JSON.parse(res.payload).ok)
-      Assert(JSON.parse(res.payload).user)
-
-      done()
-    })
-  })
-
-  test('change password for default user test', (done) => {
-    let url = '/api/v1/auth/execute_reset'
-    server.inject({
-      url: url,
-      method: 'POST',
-      payload: {token: token, password: 'concorda', repeat: 'concorda'}
-    }, function (res) {
-      Assert.equal(200, res.statusCode)
-      Assert(JSON.parse(res.payload).ok)
-
-      done()
-    })
-  })
-
-  test('login user test', (done) => {
-    let url = '/api/v1/auth/login'
-    server.inject({
-      url: url,
-      method: 'POST',
-      payload: {email: 'admin@concorda.com', password: 'concorda', appkey: 'concorda'}
-    }, function (res) {
-      Assert.equal(200, res.statusCode)
-      Assert(JSON.parse(res.payload).user)
-      Assert(JSON.parse(res.payload).login)
-
-      cookie = Util.checkCookie(res)
       done()
     })
   })

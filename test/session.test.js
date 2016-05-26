@@ -32,6 +32,11 @@ suite('Hapi user session suite tests ', function () {
     Util.after(seneca, done)
   })
 
+  // ////////////////////////////////////////
+  // this will "unlock" default user as this
+  // is locked to force change its password
+  // START
+  // ////////////////////////////////////////
   let token
   test('login default user failed test', (done) => {
     let url = '/api/v1/auth/login'
@@ -65,13 +70,32 @@ suite('Hapi user session suite tests ', function () {
     })
   })
 
+  test('login user test', (done) => {
+    let url = '/api/v1/auth/login'
+    server.inject({
+      url: url,
+      method: 'POST',
+      payload: {email: 'admin@concorda.com', password: 'concorda', appkey: 'concorda'}
+    }, function (res) {
+      Assert.equal(200, res.statusCode)
+      Assert(JSON.parse(res.payload).user)
+      Assert(JSON.parse(res.payload).login)
+
+      cookie = Util.checkCookie(res)
+      done()
+    })
+  })
+  // /////////////////////////////////////
+  // END "unlocking" default user
+  // /////////////////////////////////////
+
   test('register client test', (done) => {
     let url = '/api/v1/admin/client'
 
     server.inject({
       url: url,
       method: 'POST',
-      payload: {name: 'SessionClient', appkey: 'session'},
+      payload: {name: 'Some client application', appkey: 'session'},
       headers: { cookie: 'seneca-login=' + cookie }
     }, function (res) {
       Assert.equal(200, res.statusCode)
