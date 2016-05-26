@@ -24,7 +24,7 @@
   "dependencies": {
     "async": "1.5.x",
     "bell": "6.3.0",
-    "chairo": "2.0.x",
+    "chairo": "2.2.x",
     "dotenv": "^2.0.0",
     "ejs": "2.4.1",
     "eraro": "0.4.1",
@@ -36,6 +36,7 @@
     "postgrator": "2.7.0",
     "seneca-auth": "1.0.x",
     "seneca-balance-client": "0.2.0",
+    "seneca-entity": "^0.1.1",
     "seneca-github-auth": "github:mirceaalexandru/seneca-github-auth",
     "seneca-google-auth": "1.0.x",
     "seneca-mail": "0.2.2",
