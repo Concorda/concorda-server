@@ -47,6 +47,11 @@ suite('Force reset pwd after interval', () => {
     Util.after(seneca, done)
   })
 
+  // ////////////////////////////////////////
+  // this will "unlock" default user as this
+  // is locked to force change its password
+  // START
+  // ////////////////////////////////////////
   let token
   test('login default user failed test', (done) => {
     let url = '/api/v1/auth/login'
@@ -95,6 +100,9 @@ suite('Force reset pwd after interval', () => {
       done()
     })
   })
+  // /////////////////////////////////////
+  // END "unlocking" default user
+  // /////////////////////////////////////
 
   test('register client test', (done) => {
     let url = '/api/v1/admin/client'
