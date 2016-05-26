@@ -11,7 +11,7 @@ const after = lab.after
 
 var Util = require('./test-init.js')
 
-suite('Hapi user suite tests ', () => {
+suite('Limit active user sessions ', () => {
   let server = null
   let cookie = null
   let seneca = null
@@ -20,7 +20,7 @@ suite('Hapi user suite tests ', () => {
 
   before({}, function (done) {
     process.env.USER_POLICY = JSON.stringify({
-      'maximumSessionNumber': '2',
+      'maximumSessionNumber': '1',
       'activateAccount': '0',
       'forceChangePassword': '0'
     })
@@ -132,6 +132,50 @@ suite('Hapi user suite tests ', () => {
       Assert(JSON.parse(res.payload).user)
       Assert(JSON.parse(res.payload).login)
 
+      cookie = Util.checkCookie(res)
+      done()
+    })
+  })
+
+  test('get user information', (done) => {
+    let url = '/api/v1/auth/user'
+    server.inject({
+      url: url,
+      method: 'GET',
+      headers: { cookie: 'seneca-login=' + cookie }
+    }, function (res) {
+      Assert.equal(200, res.statusCode)
+      Assert(JSON.parse(res.payload).ok)
+      Assert(JSON.parse(res.payload).user)
+
+      done()
+    })
+  })
+
+  test('login user test', (done) => {
+    let url = '/api/v1/auth/login'
+    server.inject({
+      url: url,
+      method: 'POST',
+      payload: {email: user.email, password: user.password, appkey: user.appkey}
+    }, function (res) {
+      Assert.equal(200, res.statusCode)
+      Assert(JSON.parse(res.payload).ok)
+      Assert(JSON.parse(res.payload).user)
+      Assert(JSON.parse(res.payload).login)
+
+      done()
+    })
+  })
+
+  test('get user information will not work as session is closed', (done) => {
+    let url = '/api/v1/auth/user'
+    server.inject({
+      url: url,
+      method: 'GET',
+      headers: { cookie: 'seneca-login=' + cookie }
+    }, function (res) {
+      Assert.equal(401, res.statusCode)
       done()
     })
   })
