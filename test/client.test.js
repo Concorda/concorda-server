@@ -83,6 +83,7 @@ suite('Hapi client suite tests ', () => {
       payload: {email: 'admin@concorda.com', password: 'concorda', appkey: 'concorda'}
     }, function (res) {
       Assert.equal(200, res.statusCode)
+      Assert(JSON.parse(res.payload).ok)
       Assert(JSON.parse(res.payload).user)
       Assert(JSON.parse(res.payload).login)
 
