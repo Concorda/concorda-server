@@ -11,7 +11,8 @@ let dbColumns = [
   'sys_reset',
   'sys_user',
   'client_token',
-  'client_data'
+  'client_data',
+  'logging'
 ]
 
 exports.init = function (options, done) {
