@@ -24,6 +24,7 @@ suite('API endpoints should be protected tests ', () => {
       '/api/v1/admin/group',
       '/api/v1/admin/groups',
       '/api/v1/admin/settings',
+      '/api/v1/admin/logs',
       '/api/v1/admin/user',
       '/api/v1/admin/user/something'
     ],
